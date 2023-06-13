@@ -1,2 +1,2 @@
 #!/bin/bash
-(set -o posix; set | grep -vE '^\s*$|BASH_FUNC|^_='; env | sort; declare -F)
+set
