@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
-#0. Give me a page!
+# fixed error message by staring Apache2 server
+
 sudo service apache2 start
