@@ -3,12 +3,12 @@
 
 sudo apt-get -y update
 sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
 echo 'Hello World!' | sudo tee /var/www/html/index.html
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
-sudo sed -i '/server_name _;/a \
-    error_page 404 /404.html;\n\
-    location = /404.html {\n\
-        internal;\n\
-    }' /etc/nginx/sites-available/default
-
-sudo service nginx start
+# string containing custom 404 page configuration
+new="server_name _;\n\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
+# configure nginx custom 404 page
+sudo sed -i "s/server_name _;/$new/" /etc/nginx/sites-available/default
+#restart nginx
+sudo service nginx restart
