@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Installs nginx server
+sudo apt-get update
+sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
+echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
+
+# configure /redirect_me to redirect to another page and “301 Moved Permanently”
+new="server_name _;\n\n\tlocation \/redirect_me {\n\t\treturn 301 https:\/\/youtube.com\/@100bunco;\n\t}"
+sudo sed -i "s/server_name _;/$new/" /etc/nginx/sites-available/default
+
+# adding the custom header
+new="http {\n\tadd_header X-Served-By \$hostname;"
+sudo sed -i "s/http {/$new/" /etc/nginx/nginx.conf
+
+sudo service nginx restart
