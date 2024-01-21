@@ -9,6 +9,12 @@ echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
 new="server_name _;\n\n\tlocation \/redirect_me {\n\t\treturn 301 https:\/\/youtube.com\/@100bunco;\n\t}"
 sudo sed -i "s/server_name _;/$new/" /etc/nginx/sites-available/default
 
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
+# string containing custom 404 page configuration
+new="server_name _;\n\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
+# configure nginx custom 404 page
+sudo sed -i "s/server_name _;/$new/" /etc/nginx/sites-available/default
+
 # adding the custom header
 new="http {\n\tadd_header X-Served-By \$hostname;"
 sudo sed -i "s/http {/$new/" /etc/nginx/nginx.conf
