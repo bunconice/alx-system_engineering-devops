@@ -16,7 +16,7 @@ if __name__ == "__main__":
         if (item["completed"]):
             task_completed += 1
     tasks = len(todo_data)
-    print(f"Employee {user_response['name']} is done with tasks", end="")
+    print(f"Employee {user_response.get('name')} is done with tasks", end="")
     print(f"({task_completed}/{tasks}):")
     for item in todo_data:
         if (item["completed"]):
