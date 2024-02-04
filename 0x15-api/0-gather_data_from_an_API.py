@@ -20,4 +20,4 @@ if __name__ == "__main__":
     print(f"({task_completed}/{tasks}):")
     for item in todo_data:
         if (item["completed"]):
-            print("\t ",format(item['title']))
+            print(f"\t {item['title']}")
