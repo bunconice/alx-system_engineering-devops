@@ -19,4 +19,5 @@ if __name__ == "__main__":
     print(f"Employee {user_response['name']} is done with tasks", end="")
     print(f"({task_completed}/{tasks}):")
     for item in todo_data:
-        print("\t ",format(item['title']))
+        if (item["completed"]):
+            print("\t ",format(item['title']))
