@@ -19,5 +19,5 @@ if __name__ == "__main__":
     with open("USER_ID.csv", mode="w", newline='') as csvfile:
         writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
         for item in todo_data:
-            writer.writerow([item["userId"], user_response["username"],
+            writer.writerow([user, user_response["username"],
                              item["completed"], item["title"]])
