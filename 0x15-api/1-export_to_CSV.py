@@ -16,7 +16,7 @@ if __name__ == "__main__":
     user_response = requests.get(user_url + f"{user}").json()
     todo_data = requests.get(todo_url, params=param).json()
 
-    with open("USER_ID.csv", mode="w", newline='') as csvfile:
+    with open("{}.csv".format(user), mode="w", newline='') as csvfile:
         writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
         for item in todo_data:
             writer.writerow([user, user_response["username"],
