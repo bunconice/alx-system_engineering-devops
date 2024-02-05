@@ -9,15 +9,17 @@ import requests
 from sys import argv
 
 if __name__ == "__main__":
-    user = argv[1]
-    user_url = "https://jsonplaceholder.typicode.com/users/"
-    todo_url = "https://jsonplaceholder.typicode.com/todos"
-    param = {"userId": argv[1]}
-    user_response = requests.get(user_url + f"{user}").json()
-    todo_data = requests.get(todo_url, params=param).json()
-    username = user_response["username"]
-    with open("{}.json".format(user), "w") as file:
-        json.dump({user: [{"task": item['title'],
-                           "completed": item['completed'],
-                           "username": username} for item in todo_data]},
-                  file)
+    user_id = argv[1]
+
+    url = "https://jsonplaceholder.typicode.com/"
+    uri_user_id = "users/{}".format(user_id)
+    uri_todos = "todos"
+
+    user_name = requests.get(url + uri_user_id).json().get("username")
+    tasks = requests.get(url + uri_todos, params={"userId": user_id}).json()
+
+    with open("{}.json".format(user_id), "w", newline="") as jsonfile:
+        json.dump({user_id: [{"task": task.get("title"),
+                              "completed": task.get("completed"),
+                              "username": user_name} for task in tasks]},
+                  jsonfile)
